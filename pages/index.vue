@@ -4,9 +4,7 @@
       class="flex flex-col gap-8 py-8 md:grid md:grid-cols-2 md:gap-16 lg:gap-24 min-h-screen md:items-center"
     >
       <section>
-        <h1 class="mb-4 md:mb-8">
-          Znajdź swoją okazję w Second<span class="text-primary">Hunt</span>
-        </h1>
+        <AppTypeWriter />
         <p class="mb-6">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec enim
           nulla. Donec et sodales nulla, a mollis nisi.
@@ -20,7 +18,7 @@
           <UButton
             v-for="city in cities"
             :key="city.name"
-            variant="outline"
+            :variant="selectedCity?.name === city.name ? 'solid' : 'outline'"
             icon="uil:map-marker"
             size="lg"
             :to="`/city/${city.name.toLowerCase()}`"
