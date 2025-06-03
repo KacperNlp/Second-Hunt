@@ -1,18 +1,35 @@
 <template>
   <UContainer>
-    <div v-if="error">
-      <UAlert
-        title="Lokalizacja niedostępna"
-        description="Wybierz miasto ręcznie"
-      >
-        <USelect
-          v-model="selectedCity"
-          :options="cities"
-          placeholder="Wybierz miasto"
-        />
-      </UAlert>
+    <div
+      class="flex flex-col gap-8 py-8 md:grid md:grid-cols-2 md:gap-16 lg:gap-24 min-h-screen md:items-center"
+    >
+      <section>
+        <h1 class="mb-4 md:mb-8">
+          Znajdź swoją okazję w Second<span class="text-primary">Hunt</span>
+        </h1>
+        <p class="mb-6">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec enim
+          nulla. Donec et sodales nulla, a mollis nisi.
+        </p>
+        <UButton @click="getUserLocation" color="secondary" size="lg"
+          >Moja lokalizacja</UButton
+        >
+      </section>
+      <section>
+        <div class="flex flex-wrap gap-2 md:justify-end">
+          <UButton
+            v-for="city in cities"
+            :key="city.name"
+            variant="outline"
+            icon="uil:map-marker"
+            size="lg"
+            :to="`/city/${city.name.toLowerCase()}`"
+            :color="selectedCity?.name === city.name ? 'secondary' : undefined"
+            >{{ city.name }}</UButton
+          >
+        </div>
+      </section>
     </div>
-    <AppSelectedCity v-if="selectedCity" :selected-city="selectedCity" />
   </UContainer>
 </template>
 
@@ -23,14 +40,10 @@ import type { City } from "~/types/City";
 const { coords, error, getLocation } = useGeolocation();
 const selectedCity = ref<City | null>(null);
 
-interface City {
-  name: string;
-  lat: number;
-  lng: number;
-}
-
 const cities: City[] = [
   { name: "Rzeszów", lat: 50.0412, lng: 21.9991 },
+  { name: "Stalowa Wola", lat: 50.5898, lng: 21.6744 },
+  { name: "Tarnobrzeg", lat: 50.5898, lng: 21.6744 },
   { name: "Warszawa", lat: 52.2297, lng: 21.0122 },
   { name: "Kraków", lat: 50.0647, lng: 19.945 },
   { name: "Wrocław", lat: 51.1079, lng: 17.0385 },
@@ -64,7 +77,7 @@ const calculateDistance = (
 watch(coords, (newCoords) => {
   if (newCoords) {
     let minDistance = Infinity;
-    let closest = "";
+    let closest: City | null = null;
 
     cities.forEach((city) => {
       const distance = calculateDistance(
@@ -84,7 +97,7 @@ watch(coords, (newCoords) => {
   }
 });
 
-onMounted(() => {
+function getUserLocation() {
   getLocation();
-});
+}
 </script>
