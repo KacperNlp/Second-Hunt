@@ -13,8 +13,8 @@
         <div v-if="cities" class="flex flex-wrap gap-2 md:justify-end">
           <UButton v-for="city in cities" :key="city.name"
             :variant="selectedCity?.name === city.name ? 'solid' : 'outline'" icon="uil:map-marker" size="lg"
-            :to="`/city/${city.name.toLowerCase()}`"
-            :color="selectedCity?.name === city.name ? 'secondary' : undefined">{{ city.name }}</UButton>
+            :to="`/city/${city.id}`" :color="selectedCity?.name === city.name ? 'secondary' : undefined">{{ city.name }}
+          </UButton>
         </div>
         <span v-else>Loading...</span>
       </section>
