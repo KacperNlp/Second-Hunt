@@ -1,9 +1,9 @@
 <template>
   <UContainer>
-    <div v-if="true">
-      <USkeleton class="h-16 w-full" />
+    <div v-if="isLoading">
+      <USkeleton class="h-16 w-full mb-8 mt-8 md:mt-16" />
       <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        <USkeleton class="h-full w-full" v-for="i in 6" :key="i" />
+        <USkeleton class="h-[200px] w-full " v-for="i in 6" :key="i" />
       </section>
     </div>
     <div v-else>
