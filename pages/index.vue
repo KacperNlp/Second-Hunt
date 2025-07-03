@@ -15,8 +15,8 @@
   </UContainer>
   <div class="bg-secondary">
     <UContainer>
-      <section class="flex flex-col md:flex-row justify-center items-center gap-8 py-24 min-h-max">
-        <AppImgTile img="/img/Wallet3.jpg" alt="Vintage" url="/register/1" buttonText="Stwórz konto">
+      <section class="flex flex-col md:flex-row justify-center items-center gap-8 py-24 md:py-32 min-h-max">
+        <AppImgTile img="/img/Wallet3.jpg" alt="Vintage" url="/register?type=user" buttonText="Stwórz konto">
           <template #title>
             <h2>Dla użytkowników</h2>
           </template>
@@ -25,7 +25,7 @@
               społeczności.</p>
           </template>
         </AppImgTile>
-        <AppImgTile img="/img/Storefront2.jpg" alt="Vintage" url="/register/2" buttonText="Stwórz konto">
+        <AppImgTile img="/img/Storefront2.jpg" alt="Vintage" url="/register?type=owner" buttonText="Stwórz konto">
           <template #title>
             <h2>Dla właścicieli</h2>
           </template>
