@@ -67,4 +67,10 @@ interface City {
   lng: number;
 }
 
-export type { City, OpeningHours, Schedule };
+interface Province {
+  value: string;
+  label: string;
+  code: string;
+}
+
+export type { City, OpeningHours, Schedule, Province };
