@@ -67,4 +67,4 @@ interface City {
   lng: number;
 }
 
-export type { City, OpeningHours };
+export type { City, OpeningHours, Schedule };

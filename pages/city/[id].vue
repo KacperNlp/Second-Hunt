@@ -10,7 +10,12 @@
       <h1 class="text-2xl font-bold uppercase mt-8 md:mt-16 mb-4">
         {{ selectedCity?.name }}
       </h1>
-      <span class="text-sm inline-block mb-8">Wróć do <NuxtLink to="/">strony głównej</NuxtLink></span>
+      <span class="text-sm inline-block mb-8">
+        <NuxtLink to="/" class="flex items-center gap-2 text-gray-500 hover:text-black duration-300">
+          <UIcon name="material-symbols:arrow-back" class="size-5" />
+          Wróć do strony głównej
+        </NuxtLink>
+      </span>
       <section v-if="secondHands.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         <NuxtLink class="relative" v-for="secondHand in sortedSecondHands" :key="secondHand.name"
           :to="`/secondhand/${secondHand.id}`">

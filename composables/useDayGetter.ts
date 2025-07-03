@@ -6,7 +6,7 @@ export const useDayGetter = () => {
     "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"
     ];
 
-    const todayKey = dayMap[todayIndex];
+    const todayKey: keyof OpeningHours = dayMap[todayIndex] as keyof OpeningHours;
 
     const getTodayOpeningHours = (openingHours: OpeningHours) => {
         const currentDay = openingHours[todayKey as keyof OpeningHours];
