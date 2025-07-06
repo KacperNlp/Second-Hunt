@@ -33,18 +33,18 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2 text-left">
                         Województwo
                     </label>
-                    <USelect v-model="selectedProvince" :items="provinces" option-attribute="name" value-attribute="id"
+                    <USelect v-model="selectedProvince" :items="provinces" label-key="name" value-key="id"
                         placeholder="Wybierz województwo" :loading="loadingProvinces"
-                        @update:model-value="onProvinceChange" class="w-full" />
+                        @update:model-value="onProvinceChange" class="w-full text-gray-900" />
                 </div>
 
                 <div class="flex-1">
                     <label class="block text-sm font-medium text-gray-700 mb-2 text-left">
                         Miasto
                     </label>
-                    <USelect v-model="selectedCity" :options="filteredCities" option-attribute="name"
-                        value-attribute="id" placeholder="Wybierz miasto" :loading="loadingCities"
-                        :disabled="!selectedProvince" class="w-full" />
+                    <USelect v-model="selectedCity" :items="cities" label-key="name" value-key="id"
+                        placeholder="Wybierz miasto" :loading="loadingCities" :disabled="!selectedProvince"
+                        class="w-full text-gray-900" />
                 </div>
             </div>
 
@@ -63,19 +63,20 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex gap-3 mt-6">
+            <div class="flex justify-center gap-3 mt-6">
                 <UButton v-if="searchMethod === 'city'" @click="searchByCity" :disabled="!selectedCity"
-                    color="secondary" class="flex-1">
+                    color="secondary" class="cursor-pointer">
                     <UIcon name="material-symbols:search" class="size-4 mr-2" />
                     Szukaj sklepów
                 </UButton>
 
-                <UButton v-else @click="searchByZipCode" :disabled="!isValidZipCode" color="secondary" class="flex-1">
+                <UButton v-else @click="searchByZipCode" :disabled="!isValidZipCode" color="secondary"
+                    class="cursor-pointer">
                     <UIcon name="material-symbols:search" class="size-4 mr-2" />
                     Szukaj sklepów
                 </UButton>
 
-                <UButton @click="getUserLocation" variant="outline" color="secondary">
+                <UButton @click="getUserLocation" variant="outline" color="secondary" class="cursor-pointer">
                     <UIcon name="material-symbols:my-location" class="size-4" />
                 </UButton>
             </div>
@@ -111,34 +112,6 @@ const cities = ref<City[]>([])
 const loadingProvinces = ref(false)
 const loadingCities = ref(false)
 
-// Polish provinces data
-const polishProvinces: Province[] = [
-    { value: 'dolnośląskie', label: 'Dolnośląskie', code: 'DS' },
-    { value: 'kujawsko-pomorskie', label: 'Kujawsko-Pomorskie', code: 'KP' },
-    { value: 'lubelskie', label: 'Lubelskie', code: 'LB' },
-    { value: 'lubuskie', label: 'Lubuskie', code: 'LS' },
-    { value: 'łódzkie', label: 'Łódzkie', code: 'LD' },
-    { value: 'małopolskie', label: 'Małopolskie', code: 'MP' },
-    { value: 'mazowieckie', label: 'Mazowieckie', code: 'MZ' },
-    { value: 'opolskie', label: 'Opolskie', code: 'OP' },
-    { value: 'podkarpackie', label: 'Podkarpackie', code: 'PK' },
-    { value: 'podlaskie', label: 'Podlaskie', code: 'PL' },
-    { value: 'pomorskie', label: 'Pomorskie', code: 'PM' },
-    { value: 'śląskie', label: 'Śląskie', code: 'SL' },
-    { value: 'świętokrzyskie', label: 'Świętokrzyskie', code: 'SK' },
-    { value: 'warmińsko-mazurskie', label: 'Warmińsko-Mazurskie', code: 'WM' },
-    { value: 'wielkopolskie', label: 'Wielkopolskie', code: 'WP' },
-    { value: 'zachodniopomorskie', label: 'Zachodniopomorskie', code: 'ZP' }
-]
-
-// Computed
-const filteredCities = computed(() => {
-    if (!selectedProvince.value) return []
-    return cities.value.filter(city =>
-        city.name.toLowerCase().includes(selectedProvince.value.toLowerCase())
-    )
-})
-
 const isValidZipCode = computed(() => {
     const zipRegex = /^\d{2}-\d{3}$/
     return zipRegex.test(zipCode.value)
@@ -165,8 +138,11 @@ function formatZipCode() {
 async function loadProvinces() {
     loadingProvinces.value = true
     try {
-        // For now, use static data. In the future, this could come from an API
-        provinces.value = polishProvinces
+        const { data, error } = await supabase.from('regions').select('*')
+        if (error) throw error
+        provinces.value = data || []
+
+        console.log(provinces.value)
     } catch (error) {
         errorMessage.value = 'Błąd podczas ładowania województw'
         console.error(error)
@@ -178,7 +154,7 @@ async function loadProvinces() {
 async function loadCities() {
     loadingCities.value = true
     try {
-        const { data, error } = await supabase.from('cities').select('*')
+        const { data, error } = await supabase.from('cities').select('*').eq('region', selectedProvince.value)
         if (error) throw error
         cities.value = data || []
     } catch (error) {
@@ -249,6 +225,10 @@ watch(coords, (newCoords) => {
     }
 })
 
+watch(selectedProvince, () => {
+    loadCities()
+})
+
 // Calculate distance between two points
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
     const R = 6371
@@ -267,6 +247,5 @@ function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
 // Initialize
 onMounted(() => {
     loadProvinces()
-    loadCities()
 })
 </script>

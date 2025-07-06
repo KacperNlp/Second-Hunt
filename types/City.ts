@@ -68,9 +68,8 @@ interface City {
 }
 
 interface Province {
-  value: string;
-  label: string;
-  code: string;
+  id: string;
+  name: string;
 }
 
 export type { City, OpeningHours, Schedule, Province };
