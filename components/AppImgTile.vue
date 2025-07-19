@@ -1,5 +1,5 @@
 <template>
-    <UCard>
+    <AppCard>
         <div class="flex flex-row items-center gap-8">
             <img :src="img" :alt="alt" class="w-1/3 h-full object-cover" />
             <div class="flex flex-col justify-center md:justify-start">
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-    </UCard>
+    </AppCard>
 </template>
 
 <script setup lang="ts">

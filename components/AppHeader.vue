@@ -23,7 +23,7 @@
 
             <div class="auth-buttons">
                 <NuxtLink to="/login" class="btn btn-login"> Zaloguj się </NuxtLink>
-                <NuxtLink to="/signup" class="btn btn-signup"> Zarejestruj się </NuxtLink>
+                <NuxtLink to="/register?type=user" class="btn btn-signup"> Zarejestruj się </NuxtLink>
             </div>
 
             <button class="mobile-menu-toggle" @click="toggleMobileMenu" :aria-expanded="isMobileMenuOpen" aria-label="Toggle mobile menu">
