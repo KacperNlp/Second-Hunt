@@ -5,7 +5,8 @@
   --ui-primary: #4b6a5a;
   --ui-secondary: #d4a259;
   --ui-bg: #fafaf3;
-  --ui-text: #333333;
+  --ui-text: #333;
+  --ui-text-highlighted: #333;
   --ui-surface: #f5f1ea;
   --font-sans: "Space Grotesk", sans-serif;
 
@@ -85,4 +86,12 @@ p {
 small {
     font-size: var(--font-size-small);
     color: #666;
+}
+
+.gradient-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
