@@ -123,12 +123,15 @@ function getUserLocation() {
     getLocation();
 }
 
-watch(coords, (newCoords) => {
-    if (newCoords && cities.value.length > 0) {
+watch(coords, async (newCoords) => {
+    if (newCoords) {
+        const { data, error } = await supabase.from("cities").select("*");
+        if (error) throw error;
+
         let minDistance = Infinity;
         let closestCity: City | null = null;
 
-        cities.value.forEach((city) => {
+        data.forEach((city) => {
             const distance = calculateDistance(newCoords.lat, newCoords.lng, city.lat, city.lng);
 
             if (distance < minDistance) {
