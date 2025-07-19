@@ -3,9 +3,9 @@
         <div class="flex flex-row items-center gap-8">
             <img :src="img" :alt="alt" class="w-1/3 h-full object-cover" />
             <div class="flex flex-col justify-center md:justify-start">
-                <h3 class="text-md font-bold mb-2">
+                <h2 class="text-md font-bold mb-2">
                     <slot name="title"></slot>
-                </h3>
+                </h2>
                 <p class="text-sm text-gray-500 mb-6">
                     <slot name="description"></slot>
                 </p>

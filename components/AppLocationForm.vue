@@ -14,6 +14,7 @@
                         label-key="name"
                         value-key="id"
                         placeholder="Wybierz województwo"
+                        aria-label="Wybierz województwo"
                         :loading="loadingProvinces"
                         @update:model-value="onProvinceChange"
                         class="w-full text-gray-900"
@@ -28,6 +29,7 @@
                         label-key="name"
                         value-key="id"
                         placeholder="Wybierz miasto"
+                        aria-label="Wybierz miasto"
                         :loading="loadingCities"
                         :disabled="!selectedProvince"
                         class="w-full text-gray-900"
@@ -41,7 +43,13 @@
                     Szukaj sklepów
                 </UButton>
 
-                <UButton @click="getUserLocation" variant="outline" color="secondary" class="cursor-pointer">
+                <UButton
+                    @click="getUserLocation"
+                    variant="outline"
+                    color="secondary"
+                    class="cursor-pointer"
+                    aria-label="Znajdź miasto na podstawie lokalizacji"
+                >
                     <UIcon name="material-symbols:my-location" class="size-4" />
                 </UButton>
             </div>

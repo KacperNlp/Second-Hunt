@@ -3,7 +3,7 @@
         <div class="header-container">
             <div class="logo">
                 <NuxtLink to="/" class="logo-link">
-                    <h1 class="brand-name">SecondHunt</h1>
+                    <span class="brand-name">SecondHunt</span>
                 </NuxtLink>
             </div>
 
