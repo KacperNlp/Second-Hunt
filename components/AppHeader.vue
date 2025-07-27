@@ -21,11 +21,6 @@
                 </ul>
             </nav>
 
-            <div class="auth-buttons">
-                <NuxtLink to="/login" class="btn btn-login"> Zaloguj się </NuxtLink>
-                <NuxtLink to="/register?type=user" class="btn btn-signup"> Zarejestruj się </NuxtLink>
-            </div>
-
             <button class="mobile-menu-toggle" @click="toggleMobileMenu" :aria-expanded="isMobileMenuOpen" aria-label="Toggle mobile menu">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -43,12 +38,6 @@
                 </li>
                 <li class="nav-mobile-item">
                     <NuxtLink to="/business" class="nav-mobile-link" @click="closeMobileMenu"> Dla biznesu </NuxtLink>
-                </li>
-                <li class="nav-mobile-item">
-                    <NuxtLink to="/login" class="nav-mobile-link" @click="closeMobileMenu"> Zaloguj się </NuxtLink>
-                </li>
-                <li class="nav-mobile-item">
-                    <NuxtLink to="/register?type=user" class="nav-mobile-link" @click="closeMobileMenu"> Zarejestruj się </NuxtLink>
                 </li>
             </ul>
         </nav>

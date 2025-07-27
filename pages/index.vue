@@ -14,7 +14,7 @@
             </section>
         </UContainer>
     </div>
-    <UContainer>
+    <!-- <UContainer>
         <section class="flex flex-col md:flex-row justify-center items-center gap-8 py-24 md:py-32 min-h-max">
             <AppImgTile img="/img/Wallet3.webp" alt="Vintage" url="/register?type=user" buttonText="Stwórz konto">
                 <template #title> Dla użytkowników </template>
@@ -29,7 +29,7 @@
                 </template>
             </AppImgTile>
         </section>
-    </UContainer>
+    </UContainer> -->
 </template>
 
 <style scoped>
